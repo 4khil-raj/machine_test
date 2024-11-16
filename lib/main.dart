@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:motionray_machine_task/view/screens/home_screen/home_screen.dart';
-import 'package:motionray_machine_task/view_model/fetch_provider/provider.dart';
+import 'package:motionray_machine_task/view_model/provider/fetch_provider/provider.dart';
+import 'package:motionray_machine_task/view_model/provider/image_picker/image.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -8,6 +9,9 @@ void main() {
     ChangeNotifierProvider(
       create: (_) => FetchClientDataProvider(),
     ),
+    ChangeNotifierProvider(
+      create: (_) => FilePickerProvider(),
+    )
   ], child: const MainApp()));
 }
 

@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:motionray_machine_task/view/screens/home_screen/widgets/client_table.dart';
+import 'package:motionray_machine_task/view/screens/home_screen/widgets/dropdown_btn.dart';
 import 'package:motionray_machine_task/view/screens/home_screen/widgets/row_name.dart';
-import 'package:motionray_machine_task/view/widgets/buttons/buttons.dart';
-import 'package:motionray_machine_task/view_model/fetch_provider/provider.dart';
-import 'package:motionray_machine_task/view_model/model/fetch_model.dart';
+import 'package:motionray_machine_task/view_model/provider/fetch_provider/provider.dart';
 import 'package:provider/provider.dart';
 
 class ClientDetails extends StatelessWidget {
+  const ClientDetails({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Consumer<FetchClientDataProvider>(
@@ -24,7 +26,7 @@ class ClientDetails extends StatelessWidget {
         children: [
           const RowNames(),
           ListView.builder(
-            physics: AlwaysScrollableScrollPhysics(),
+            physics: const AlwaysScrollableScrollPhysics(),
             shrinkWrap: true,
             itemCount: provider.clientData.length,
             itemBuilder: (context, rowIndex) {
@@ -44,7 +46,7 @@ class ClientDetails extends StatelessWidget {
                         (colIndex) => Expanded(
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: _getCellWidget(
+                            child: tableOrder(
                               colIndex,
                               provider.clientData[rowIndex],
                             ),
@@ -57,66 +59,59 @@ class ClientDetails extends StatelessWidget {
               );
             },
           ),
+          Container(
+            height: 60,
+            color: const Color.fromARGB(255, 183, 182, 181),
+            child: Row(
+              children: [
+                const Padding(
+                  padding: EdgeInsets.only(left: 30, right: 30),
+                  child: Text('Showing'),
+                ),
+                const DropDownButton(),
+                const Padding(
+                  padding: EdgeInsets.only(left: 10, right: 30),
+                  child: Text('Items per page'),
+                ),
+                const Spacer(),
+                Container(
+                  width: 28,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(
+                          color: const Color.fromARGB(255, 177, 175, 175))),
+                  child: const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text('1'),
+                  ),
+                ),
+                const SizedBox(
+                  width: 8,
+                ),
+                Container(
+                  width: 28,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text('2'),
+                  ),
+                ),
+                const Padding(
+                  padding: EdgeInsets.only(left: 10, right: 10),
+                  child: Text('Next'),
+                ),
+                const Padding(
+                  padding: EdgeInsets.only(left: 10, right: 40),
+                  child: Text('End'),
+                ),
+              ],
+            ),
+          )
         ],
       );
     });
-  }
-
-  Widget _getCellWidget(int colIndex, FetchClientDatas client) {
-    switch (colIndex) {
-      case 0:
-        return CircleAvatar(
-          backgroundImage: NetworkImage(client.logo ?? ''),
-          radius: 20,
-        );
-      case 1:
-        return Text(
-          client.clientId.toString(),
-          textAlign: TextAlign.center,
-        );
-      case 2:
-        return Text(
-          client.clientName,
-          textAlign: TextAlign.center,
-        );
-      case 3:
-        return Text(
-          client.emailAddress,
-          textAlign: TextAlign.center,
-        );
-      case 4:
-        return Text(
-          client.phoneNumber,
-          textAlign: TextAlign.center,
-        );
-      case 5:
-        return Text(
-          client.location,
-          textAlign: TextAlign.center,
-        );
-      case 6:
-        return Text(
-          client.address,
-          textAlign: TextAlign.center,
-        );
-      case 7:
-        return CustomButton(
-          textsize: 11,
-          radius: 5,
-          isNetwork: false,
-          isRow: false,
-          color: client.status.toLowerCase() == 'active'
-              ? Colors.green
-              : Colors.grey,
-          height: 26,
-          width: 150,
-          name: client.status,
-          fontweight: FontWeight.w600,
-          textclr: Colors.white,
-          iconradius: 10,
-        );
-      default:
-        return const SizedBox.shrink();
-    }
   }
 }

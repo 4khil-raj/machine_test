@@ -15,8 +15,10 @@ class CustomTextFormField extends StatelessWidget {
   final Icon? prefixIcon;
   final Color? labelColor;
   final Function()? onTap;
+  final int? maxline;
 
   const CustomTextFormField({
+    this.maxline,
     super.key,
     this.maxlength,
     required this.hintText,
@@ -37,6 +39,8 @@ class CustomTextFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      onTap: onTap,
+      maxLines: maxline,
       style: TextStyle(color: inputTextcolor),
       maxLength: maxlength,
       onTapOutside: (event) {
@@ -73,7 +77,6 @@ class CustomTextFormField extends StatelessWidget {
         hintStyle: TextStyle(color: hintTextcolor),
         fillColor: Colors.transparent,
         filled: true,
-        // border: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
       ),
     );
   }

@@ -2,8 +2,6 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:motionray_machine_task/view_model/model/fetch_model.dart';
 
-import 'dart:convert'; // To decode the JSON response
-
 class ClientRepository {
   Future<List<FetchClientDatas>> fetchClients() async {
     final url =
@@ -18,11 +16,8 @@ class ClientRepository {
     );
 
     if (response.statusCode == 200) {
-      print(response.body);
-      // Decode the response body to a List of JSON objects
       final List<dynamic> data = json.decode(response.body);
 
-      // Convert the List<dynamic> to a List<FetchClientDatas>
       return FetchClientDatas.listFromJson(data);
     } else {
       throw Exception('Failed to load clients');

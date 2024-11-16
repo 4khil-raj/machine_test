@@ -11,7 +11,6 @@ class CustomButton extends StatelessWidget {
   final Color? color;
   final double? radius;
   final double? iconradius;
-  // final Color? borderclr;
   final Color? textclr;
   final bool isNetwork;
   final bool isRow;
